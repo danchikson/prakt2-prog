@@ -1,60 +1,19 @@
-using System;  // Директивы using должны быть первыми
+public class Solution {
+    public string GcdOfStrings(string str1, string str2) {
+        // Якщо сума двох рядків не дорівнює один одному в різному порядку, немає спільного дільника
+        if ((str1 + str2) != (str2 + str1)) {
+            return "";
+        }
+        
+        // Знаходимо найбільший спільний дільник довжин рядків
+        int gcdLength = Gcd(str1.Length, str2.Length);
+        
+        // Повертаємо префікс довжини gcdLength, який є спільним дільником
+        return str1.Substring(0, gcdLength);
+    }
 
-public class TreeNode 
-{
-    public int val;
-    public TreeNode left;
-    public TreeNode right;
-
-    public TreeNode(int val = 0, TreeNode left = null, TreeNode right = null) 
-    {
-        this.val = val;
-        this.left = left;
-        this.right = right;
+    private int Gcd(int a, int b) {
+        // Реалізація алгоритму Евкліда для знаходження НСД
+        return b == 0 ? a : Gcd(b, a % b);
     }
 }
-
-public class Solution 
-{
-    public bool IsSymmetric(TreeNode root) 
-    {
-        if (root == null) return true;
-        return IsMirror(root.left, root.right);
-    }
-
-    private bool IsMirror(TreeNode left, TreeNode right) 
-    {
-        if (left == null && right == null) return true;
-        if (left == null || right == null) return false;
-
-        return (left.val == right.val) && 
-               IsMirror(left.left, right.right) && 
-               IsMirror(left.right, right.left);
-    }
-
-    static void Main(string[] args)
-    {
-        Solution solution = new Solution();
-        
-        // Test Case 1: [1,4,4,5,6,6,5]
-        TreeNode root1 = new TreeNode(1);
-        root1.left = new TreeNode(4);
-        root1.right = new TreeNode(4);
-        root1.left.left = new TreeNode(5);
-        root1.left.right = new TreeNode(6);
-        root1.right.left = new TreeNode(6);
-        root1.right.right = new TreeNode(5);
-
-        Console.WriteLine($"Test Case 1 Result: {solution.IsSymmetric(root1)}"); // Expected: True
-        
-        // Test Case 2: [1,3,3,null,4,null,4]
-        TreeNode root2 = new TreeNode(1);
-        root2.left = new TreeNode(3);
-        root2.right = new TreeNode(3);
-        root2.left.right = new TreeNode(4);
-        root2.right.right = new TreeNode(4);
-
-        Console.WriteLine($"Test Case 2 Result: {solution.IsSymmetric(root2)}"); // Expected: False
-    }
-}
-
