@@ -3,61 +3,84 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 [TestClass]
 public class SolutionTests
 {
-    private Solution solution;
+    private Solution _solution;
 
     [TestInitialize]
     public void Setup()
     {
-        solution = new Solution();
+        _solution = new Solution();
     }
 
     [TestMethod]
-    public void CanPlaceFlowers_EmptyBed_ReturnsTrue()
+    public void GcdOfStrings_WhenStringsAreEqual_ReturnsFullString()
     {
-        int[] flowerbed = new int[] { 0 };
-        Assert.IsTrue(solution.CanPlaceFlowers(flowerbed, 1));
+        string str1 = "ABC";
+        string str2 = "ABC";
+        string expected = "ABC";
+
+        string result = _solution.GcdOfStrings(str1, str2);
+
+        Assert.AreEqual(expected, result);
     }
 
     [TestMethod]
-    public void CanPlaceFlowers_FullBed_ReturnsFalse()
+    public void GcdOfStrings_WhenNoCommonDivisor_ReturnsEmptyString()
     {
-        int[] flowerbed = new int[] { 1, 0, 1 };
-        Assert.IsFalse(solution.CanPlaceFlowers(flowerbed, 1));
+        string str1 = "ABCD";
+        string str2 = "EFGH";
+        string expected = "";
+
+        string result = _solution.GcdOfStrings(str1, str2);
+
+        Assert.AreEqual(expected, result);
     }
 
     [TestMethod]
-    public void CanPlaceFlowers_LongBedWithGaps_ReturnsTrue()
+    public void GcdOfStrings_WhenStringsHaveCommonDivisor_ReturnsGcd()
     {
-        int[] flowerbed = new int[] { 1, 0, 0, 0, 1 };
-        Assert.IsTrue(solution.CanPlaceFlowers(flowerbed, 1));
+        string str1 = "ABABAB";
+        string str2 = "ABAB";
+        string expected = "AB";
+
+        string result = _solution.GcdOfStrings(str1, str2);
+
+        Assert.AreEqual(expected, result);
     }
 
     [TestMethod]
-    public void CanPlaceFlowers_ZeroFlowersNeeded_ReturnsTrue()
+    public void GcdOfStrings_WhenOneStringEmpty_ReturnsEmptyString()
     {
-        int[] flowerbed = new int[] { 1, 1, 1 };
-        Assert.IsTrue(solution.CanPlaceFlowers(flowerbed, 0));
+        string str1 = "ABC";
+        string str2 = "";
+        string expected = "";
+
+        string result = _solution.GcdOfStrings(str1, str2);
+
+        Assert.AreEqual(expected, result);
     }
 
     [TestMethod]
-    public void CanPlaceFlowers_NotEnoughSpace_ReturnsFalse()
+    public void GcdOfStrings_WhenBothStringsEmpty_ReturnsEmptyString()
     {
-        int[] flowerbed = new int[] { 1, 0, 1, 0, 1 };
-        Assert.IsFalse(solution.CanPlaceFlowers(flowerbed, 2));
+        string str1 = "";
+        string str2 = "";
+        string expected = "";
+
+        string result = _solution.GcdOfStrings(str1, str2);
+
+        Assert.AreEqual(expected, result);
     }
 
     [TestMethod]
-    public void CanPlaceFlowers_MultipleGaps_ReturnsTrue()
+    public void GcdOfStrings_WhenLongerCommonDivisor_ReturnsLongestGcd()
     {
-        int[] flowerbed = new int[] { 0, 0, 0, 0, 0 };
-        Assert.IsTrue(solution.CanPlaceFlowers(flowerbed, 3));
-    }
+        string str1 = "ABCABCABC";
+        string str2 = "ABCABC";
+        string expected = "ABC";
 
-    [TestMethod]
-    public void CanPlaceFlowers_EdgeCases_ReturnsExpected()
-    {
-        int[] flowerbed = new int[] { 0, 0 };
-        Assert.IsTrue(solution.CanPlaceFlowers(flowerbed, 1));
-        Assert.IsFalse(solution.CanPlaceFlowers(flowerbed, 2));
+        string result = _solution.GcdOfStrings(str1, str2);
+
+        Assert.AreEqual(expected, result);
     }
 }
+
